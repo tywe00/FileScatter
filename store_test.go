@@ -11,13 +11,14 @@ func TestPathTransformFunc(t *testing.T) {
 	pathKey := CASPathTransformFunc(key)
 	expectedOriginalKey := "6804429f74181a63c50c3d81d733a12f14a353ff"
 	expectedPathName := "68044/29f74/181a6/3c50c/3d81d/733a1/2f14a/353ff"
+
 	if pathKey.PathName != expectedPathName {
-		t.Errorf("have %s want %s", pathKey.PathName, expectedPathName)
-	}
-	if pathKey.FileName != expectedPathName {
-		t.Errorf("have %s want %s", pathKey.FileName, expectedOriginalKey)
+		t.Errorf("PathName mismatch: have %s, want %s", pathKey.PathName, expectedPathName)
 	}
 
+	if pathKey.FileName != expectedOriginalKey {
+		t.Errorf("FileName mismatch: have %s, want %s", pathKey.FileName, expectedOriginalKey)
+	}
 }
 
 func TestStoreDeleteKey(t *testing.T) {
