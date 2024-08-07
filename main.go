@@ -3,19 +3,42 @@ package main
 import (
 	"github/Tomas/foreverstore/p2p"
 	"log"
+	//"time"
 )
 
-func main()  {
-	tcpOpts := p2p.TCPTransportOps {
-		ListenAddr: 	":3000",
+func makeServer(listenAddr string, nodes ...string) *FileServer {
+	
+	tcptransportOpts := p2p.TCPTransportOpts {
+		ListenAddr: 	listenAddr,
 		HandshakeFunc: 	p2p.NOPHandshakeFunc,
 		Decoder: 		p2p.DefaultDecoder{},
 	}
-	tr := p2p.NewTCPTransport(tcpOpts)
-	if err := tr.ListenAndAccept(); err != nil {
-		log.Fatal(err)
+	
+	tcpTransport := p2p.NewTCPTransport(tcptransportOpts)
+	
+	fileServerOpts := FileServerOpts {
+		StorageRoot: 		listenAddr + "_network",
+		PathTransformFunc: 	CASPathTransformFunc,
+		Transport: 			tcpTransport,
+		BootstrapNodes:		nodes,
 	}
-	select{}
+
+	s := NewFileServer(fileServerOpts)
+
+	tcpTransport.OnPeer = s.OnPeer
+
+	return s
 }
 
-//44:43
+func main() {
+	s1 := makeServer(":3000", "")
+	s2 := makeServer(":4000", ":3000")
+	
+	go func() {
+		log.Fatal(s1.Start())
+	}()
+
+	s2.Start()
+}
+
+//3:44:59
