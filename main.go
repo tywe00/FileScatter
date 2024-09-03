@@ -1,9 +1,10 @@
 package main
 
 import (
+	"bytes"
 	"github/Tomas/foreverstore/p2p"
 	"log"
-	//"time"
+	"time"
 )
 
 func makeServer(listenAddr string, nodes ...string) *FileServer {
@@ -38,7 +39,17 @@ func main() {
 		log.Fatal(s1.Start())
 	}()
 
-	s2.Start()
+	time.Sleep(2 * time.Second)
+
+	go s2.Start()
+	time.Sleep(2 * time.Second)
+
+
+	data := bytes.NewReader([]byte("my big data file here!"))
+
+	s2.StoreData("myprivatedata", data)
+
+	select{}
 }
 
-//3:44:59
+//6:18:42
