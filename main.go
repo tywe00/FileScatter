@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	//"fmt"
-	"github/Tomas/foreverstore/p2p"
+	"github/Tomas/FileScatter/p2p"
 	//"io/ioutil"
 	"log"
 	"time"

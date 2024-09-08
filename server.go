@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/gob"
 	"fmt"
-	"github/Tomas/foreverstore/p2p"
+	"github/Tomas/FileScatter/p2p"
 	"io"
 	"log"
 	"sync"

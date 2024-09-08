@@ -1,4 +1,4 @@
-module github/Tomas/foreverstore
+module github/Tomas/FileScatter
 
 go 1.22.5
 
