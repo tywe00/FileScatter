@@ -2,7 +2,10 @@ package main
 
 import (
 	"bytes"
+	"fmt"
+	//"fmt"
 	"github/Tomas/foreverstore/p2p"
+	//"io/ioutil"
 	"log"
 	"time"
 )
@@ -44,12 +47,27 @@ func main() {
 	go s2.Start()
 	time.Sleep(2 * time.Second)
 
+	for i := 0; i < 10; i++ {
+		data := bytes.NewReader([]byte("my big data file here!"))
+		s2.StoreData(fmt.Sprintf("myprivatedata_%d", i) , data)
+		time.Sleep(1 * time.Millisecond)
+	}
 
-	data := bytes.NewReader([]byte("my big data file here!"))
 
-	s2.StoreData("myprivatedata", data)
 
+	/* r, err := s1.Get("myprivatedata")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	b, err := ioutil.ReadAll(r)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(string(b)) */
+ 
 	select{}
 }
 
-//6:18:42
+//6:38:54
