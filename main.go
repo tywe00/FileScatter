@@ -1,11 +1,10 @@
 package main
 
 import (
-	"bytes"
+	//"bytes"
 	"fmt"
-	//"fmt"
 	"github/Tomas/FileScatter/p2p"
-	//"io/ioutil"
+	"io/ioutil"
 	"log"
 	"time"
 )
@@ -47,15 +46,17 @@ func main() {
 	go s2.Start()
 	time.Sleep(2 * time.Second)
 
-	for i := 0; i < 10; i++ {
+	/* for i := 0; i < 10; i++ {
 		data := bytes.NewReader([]byte("my big data file here!"))
 		s2.StoreData(fmt.Sprintf("myprivatedata_%d", i) , data)
 		time.Sleep(1 * time.Millisecond)
-	}
+	} */
 
+	/* data := bytes.NewReader([]byte("my big data file here!"))
+	s2.StoreData("coolPicture.jpg", data)
+	time.Sleep(5 * time.Millisecond) */
 
-
-	/* r, err := s1.Get("myprivatedata")
+	r, err := s1.Get("coolPicture.jpg")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -65,9 +66,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(string(b)) */
- 
-	select{}
-}
+	fmt.Println(string(b))
+ }
 
 //6:38:54
